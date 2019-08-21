@@ -23,9 +23,12 @@ class Invoice extends Component {
             },
         ]
      }
+     // handles all the input changes on the Invoice level components i.e. labor and taxRate
      handleInvoiceChange = (e) => {
        this.setState({[e.target.name]: e.target.value})
      }
+
+     
      handleLineItemChange = (elementIndex) => (event) => {
        let lineItems = this.state.lineItems.map((item, i) => {
          if (elementIndex !== i) return item
