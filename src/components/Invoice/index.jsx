@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import styles from './Invoice.module.scss'
 
+import LineItems from '../LineItems'
+
 class Invoice extends Component {
     
     local = 'en-US'
@@ -51,7 +53,15 @@ class Invoice extends Component {
               </div>
             </div>
             <h2>Invoice</h2>
-            {/* <LineItems /> */}
+            <LineItems
+            items={this.state.lineItems}
+            currencyFormatter={this.formatCurrency}
+            addHandler={this.handleAddLineItem}
+            changeHandler={this.handleLineItemChange}
+            focusHandler={this.handleFocusSelect}
+            deleteHandler={this.handleRemoveLineItem}
+            reorderHandler={this.handleReorderLineItems}
+          />
             <div className={styles.totalContainer}>
           <form>
             <div className={styles.valueTable}>
