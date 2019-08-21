@@ -15,6 +15,19 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Features
 
+- Drag-and-drop reordering of invoice line items using `react-beautiful-dnd`
+- SASS/SCSS modules and CSS grid for layout
+- Adjustable tax rate that is automatically added to total
+- Create, update, and delete line items
+- Invoice number auto generated
+- ~~PDF Download~~
+- ~~Print invoice~~
+- ~~Payment with [Stripe](www.stripe.com)~~
+- ~~Express, Node, Mongo backend to save invoices~~
+- ~~View current invoices~~
+- ~~View paid invoices~~
+- ~~View past due invoices~~
+
 ## Getting Started
 
 ### For Developers (using npm)
