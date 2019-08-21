@@ -15,7 +15,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Features
 
-- Drag-and-drop reordering of invoice line items using `react-beautiful-dnd`
+- ~~Drag-and-drop reordering of invoice line items using `react-beautiful-dnd`~~
 - SASS/SCSS modules and CSS grid for layout
 - Adjustable tax rate that is automatically added to total
 - Create, update, and delete line items
