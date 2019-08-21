@@ -15,11 +15,39 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Features
 
-## Scripts
+## Getting Started
+
+### For Developers (using npm)
+
+To run the project in development mode open up your terminal and follow these steps:
+
+1. Clone the project:
+
+   ```zsh
+   $ git clone https://github.com/gideonibemerejr/car-repair-invoice.git
+   ```
+
+2. Install dependencies:
+
+   ```zsh
+   $ npm install
+   ```
+
+   or
+
+   ```zsh
+   $ npm i
+   ```
+
+3. Run server for local development site to open in your default browser:
+
+   ```zsh
+   $ npm start
+   ```
 
 ## Legal
 
-
+[License](https://github.com/gideonibemerejr/car-repair-invoice/blob/master/LICENSE)
 
 Developed by [Gideon Ibemere, Jr](https://www.gideonjr.com)
 
