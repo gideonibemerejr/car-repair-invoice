@@ -22,6 +22,8 @@ const LineItem = ({index, item, description, quantity, price}) => {
         </div>
       </div>
      );
+
+
 }
  
 export default LineItem;
