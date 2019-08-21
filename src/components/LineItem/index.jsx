@@ -13,7 +13,7 @@ const LineItem = ({index, item, description, quantity, price}) => {
         <div><input name="description" type="text" value={description}  /></div>
         <div><input name="quantity" type="number" step="1" value={quantity}   /></div>
         <div className={styles.currency}><input name="price" type="number" step="0.01" min="0.00" max="9999999.99" value={price}   /></div>
-        {/* <div className={styles.currency}>{this.props.currencyFormatter( quantity * price )}</div> */}
+        <div className={styles.currency}>{/* {this.props.currencyFormatter( quantity * price )} */}</div>
         <div>
           <button type="button"
             className={styles.deleteItem}
