@@ -5,11 +5,11 @@ import LineItems from '../LineItems'
 
 class Invoice extends Component {
     
-    local = 'en-US'
+    locale = 'en-US'
     currency = 'USD'
-    hourlyRate = 25
 
     state = { 
+        hourlyRate: 0,
         date: new Date().toLocaleDateString() ,
         taxRate: 0.00,
         labor: 0,
@@ -78,7 +78,7 @@ class Invoice extends Component {
     // }
 
     calcLaborAmount = () => {
-      return (this.state.labor * this.hourlyRate)
+      return (this.state.labor * this.state.hourlyRate)
     }
   
     calcLineItemsTotal = () => {
@@ -152,6 +152,10 @@ class Invoice extends Component {
                 <div className={styles.label}>Tax Rate (%)</div>
                 <div className={styles.value}>
                     <input name="taxRate" type="number" step="0.01" value={this.state.taxRate} onChange={this.handleInvoiceChange} onFocus={this.handleFocusSelect} />
+                </div>
+                <div className={styles.label}>Hourly Labor Rate</div>
+                <div className={styles.value}>
+                    <input name="hourlyRate" type="number" step="0.01" value={this.state.hourlyRate} onChange={this.handleInvoiceChange} onFocus={this.handleFocusSelect} />
                 </div>
                 <div className={styles.label}>Labor Hours</div>
                 <div className={styles.value}>
