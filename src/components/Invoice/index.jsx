@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import styles from './Invoice.module.scss'
-
+import uuidv4 from 'uuid/v4'
 import LineItems from '../LineItems'
 
 class Invoice extends Component {
     
     local = 'en-US'
     currency = 'USD'
+    hourlyRate = 25
 
     state = { 
         date: new Date().toLocaleDateString() ,
@@ -27,7 +28,6 @@ class Invoice extends Component {
      handleInvoiceChange = (e) => {
        this.setState({[e.target.name]: e.target.value})
      }
-
      
      handleLineItemChange = (elementIndex) => (event) => {
        let lineItems = this.state.lineItems.map((item, i) => {
@@ -36,7 +36,63 @@ class Invoice extends Component {
        })
        this.setState({lineItems})
      }
-    
+
+     handleAddLineItem = (event) => {
+      this.setState({
+        // use optimistic uuid for drag drop; in a production app this could be a database id
+        lineItems: this.state.lineItems.concat(
+          [{ id: uuidv4(), name: '', description: '', quantity: 0, price: 0.00 }]
+        )
+      })
+    }
+
+    handleRemoveLineItem = (elementIndex) => (event) => {
+      this.setState({
+        lineItems: this.state.lineItems.filter((item, i) => {
+          return elementIndex !== i
+        })
+      })
+    }
+
+    handleReorderLineItems = (newLineItems) => {
+      this.setState({
+        lineItems: newLineItems,
+      })
+    }
+  
+    handleFocusSelect = (event) => {
+      event.target.select()
+    }
+
+    formatCurrency = (amount) => {
+      return (new Intl.NumberFormat(this.locale, {
+        style: 'currency',
+        currency: this.currency,
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      }).format(amount))
+    }
+  
+    // calcTaxAmount = (c) => {
+    //   return c * (this.state.taxRate / 100)
+    // }
+
+    calcLaborAmount = () => {
+      return (this.state.labor * this.hourlyRate)
+    }
+  
+    calcLineItemsTotal = () => {
+      return this.state.lineItems.reduce((prev, cur) => (prev + (cur.quantity * cur.price)), 0)
+    }
+  
+    calcTaxTotal = () => {
+      return (this.calcLineItemsTotal() + this.calcLaborAmount()) * (this.state.taxRate / 100)
+    }
+  
+    calcGrandTotal = () => {
+      return this.calcLineItemsTotal() + this.calcLaborAmount() + this.calcTaxTotal() 
+    }
+
     render() { 
         return ( 
             <div className={styles.invoice}>
@@ -67,11 +123,11 @@ class Invoice extends Component {
                 </div>
               </div>
             </div>
-            <div className="flex justify-between">
-              <div className="mt4 mr5 tl">
+            <div className="mt4 flex justify-between">
+              <div className="tl">
                 <strong>Billed To</strong>
               </div>
-              <div className="mt4 tr">
+              <div className="tr">
               <strong>James Walker</strong><br />
                   123 Sesame Street<br />
                   Albany, NY &nbsp;01252<br />
@@ -108,20 +164,20 @@ class Invoice extends Component {
             <div className={styles.valueTable}>
               <div className={styles.row}>
                 <div className={styles.label}>Subtotal</div>
-                {/* <div className={`${styles.value} ${styles.currency}`}>{this.formatCurrency(this.calcLineItemsTotal())}</div> */}
+                <div className={`${styles.value} ${styles.currency}`}>{this.formatCurrency(this.calcLineItemsTotal())}</div>
               </div>
               <div className={styles.row}>
                 <div className={styles.label}>Labor ({this.state.labor} hrs)</div>
-                {/* <div className={`${styles.value} ${styles.currency}`}>{this.formatCurrency(this.calcGrandTotal())}</div> */}
+                <div className={`${styles.value} ${styles.currency}`}>{this.formatCurrency(this.calcLaborAmount())}</div>
               </div>
               <div className={styles.row}>
                 <div className={styles.label}>Tax ({this.state.taxRate}%)</div>
-                {/* <div className={`${styles.value} ${styles.currency}`}>{this.formatCurrency(this.calcTaxTotal())}</div> */}
+                <div className={`${styles.value} ${styles.currency}`}>{this.formatCurrency(this.calcTaxTotal())}</div>
               </div>
               
               <div className={styles.row}>
                 <div className={styles.label}>Total Due</div>
-                {/* <div className={`${styles.value} ${styles.currency}`}>{this.formatCurrency(this.calcGrandTotal())}</div> */}
+                <div className={`${styles.value} ${styles.currency}`}>{this.formatCurrency(this.calcGrandTotal())}</div>
               </div>
             </div>
           </form>
