@@ -9,8 +9,14 @@ class Invoice extends Component {
     currency = 'USD'
 
     state = { 
+        date: new Date().toLocaleDateString(),
+        carInfo: {
+          YMM: '',
+          LicensePlate: '',
+          VIN: '',
+          Mileage: 0,
+        },
         hourlyRate: 0,
-        date: new Date().toLocaleDateString() ,
         taxRate: 0.00,
         labor: 0,
         lineItems: [
@@ -99,6 +105,7 @@ class Invoice extends Component {
             {/* <div className={styles.brand}>
               <img src="https://via.placeholder.com/150x50.png?text=logo" alt="Logo" className={styles.logo} />
             </div> */}
+            <h3>Customer Invoice</h3>
             <div className={styles.addresses}>
               <div className={styles.from}>
                 <strong>Professional Automotive</strong><br />
@@ -135,7 +142,30 @@ class Invoice extends Component {
               </div>
                 
               </div>
-            <h2>Invoice</h2>
+            
+            <h3>Car Information</h3>
+            <div class="mt4 mb4">
+                <div class="overflow-auto">
+                  <table class="f6 w-100 mw8 center" cellspacing="0">
+                    <thead>
+                      <tr>
+                        <th class="fw6 bb b--black-20 tl  bg-white">Y/M/M</th>
+                        <th class="fw6 bb b--black-20 tl bg-white">Lic #</th>
+                        <th class="fw6 bb b--black-20 tl bg-white">Vin #</th>
+                        <th class="fw6 bb b--black-20 tl bg-white">Mileage</th>
+                      </tr>
+                    </thead>
+                    <tbody class="lh-copy">
+                      <tr>
+                        <td class="pv3 pr3 bb b--black-20">2014 Nissan Rogue</td>
+                        <td class="pv3 pr3 bb b--black-20">F49KB97</td>
+                        <td class="pv3 pr3 bb b--black-20">14419232532474675</td>
+                        <td class="pv3 pr3 bb b--black-20">53000</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             <LineItems
             items={this.state.lineItems}
             currencyFormatter={this.formatCurrency}
@@ -188,7 +218,7 @@ class Invoice extends Component {
         </div>
 
         <div className={styles.pay}>
-          <button className={styles.payNow} onClick={this.handlePayButtonClick}>Pay Now</button>
+          <button className={styles.payNow} onClick={this.handlePayButtonClick}>Print</button>
         </div>
             </div>
          );
